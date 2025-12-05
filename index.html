@@ -1,174 +1,222 @@
 <!DOCTYPE html>
-<html lang="id" class="scroll-smooth">
+<html lang="id" class="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>noteup! | Dashboard</title>
+    <title>noteup! | Pencatat Keuangan Pribadi Profesional</title>
+    <meta name="description" content="noteup! adalah aplikasi pencatat keuangan pribadi profesional. Kelola pemasukan dan pengeluaran Anda dengan mudah dan lihat grafik keuangan Anda.">
     
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
-
     <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> <script>
+    
+    <script>
         tailwind.config = {
+            darkMode: 'class',
             theme: {
                 extend: {
-                    fontFamily: { sans: ['Poppins', 'sans-serif'] },
+                    fontFamily: {
+                        sans: ['Poppins', 'sans-serif'],
+                    },
                     colors: {
-                        primary: '#10b981', 
-                        dark: '#0f172a',
-                        card: '#1e293b'
-                    }
+                        'primary': { // Menggunakan Indigo sebagai primary color
+                            50: '#eef2ff', 100: '#e0e7ff', 200: '#c7d2fe', 300: '#a5b4fc', 
+                            400: '#818cf8', 500: '#6366f1', 600: '#4f46e5', 700: '#4338ca', 
+                            800: '#3730a3', 900: '#312e81', 950: '#1e1b4b',
+                        },
+                    },
                 }
             }
         }
     </script>
+    <link rel="stylesheet" href="style.css">
 </head>
-<body class="bg-dark text-slate-200 font-sans antialiased">
+<body class="bg-gray-900 text-white min-h-screen">
+    <header class="shadow-lg bg-gray-800/50 backdrop-blur-sm sticky top-0 z-50">
+        <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
+            <a href="#" class="text-2xl font-bold text-primary-500 tracking-wider">noteup!</a>
+            </nav>
+    </header>
 
-    <nav class="fixed w-full z-40 bg-dark/90 backdrop-blur-md border-b border-slate-700/50">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex items-center justify-between h-16">
-                <span class="text-2xl font-bold text-primary tracking-tighter">noteup!</span>
-            </div>
-        </div>
-    </nav>
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
 
-    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
-        
-        <div class="mb-8">
-            <h2 class="text-3xl font-bold text-white mb-2">Dashboard</h2>
-            <p class="text-slate-400">Ringkasan kondisi keuangan Anda.</p>
-        </div>
+        <section id="hero" class="text-center py-20 md:py-32 bg-gray-800 rounded-xl shadow-2xl mb-16">
+            <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-white mb-4">
+                Kelola Uang Anda, Kuasai Masa Depan.
+            </h1>
+            <p class="text-xl text-gray-400 mb-8 max-w-2xl mx-auto">
+                **noteup!** membantu Anda mencatat pemasukan dan pengeluaran secara profesional. Mulai catat, ukur, dan kembangkan kekayaan Anda.
+            </p>
+            <button id="cta-button" class="bg-primary-600 hover:bg-primary-700 text-white font-bold py-3 px-8 rounded-full text-lg transition duration-300 shadow-lg hover:shadow-primary-500/50">
+                Mulai Mencatat Sekarang!
+            </button>
+        </section>
 
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-            <div class="bg-card p-6 rounded-2xl border border-slate-700/50 shadow-lg relative overflow-hidden">
-                <p class="text-slate-400 text-sm font-medium mb-1">Total Saldo</p>
-                <h3 class="text-3xl font-bold text-white" id="total-balance">Rp 0</h3>
-            </div>
-            <div class="bg-card p-6 rounded-2xl border border-slate-700/50 shadow-lg relative overflow-hidden">
-                <p class="text-slate-400 text-sm font-medium mb-1">Pemasukan</p>
-                <h3 class="text-3xl font-bold text-emerald-400" id="total-income">Rp 0</h3>
-            </div>
-            <div class="bg-card p-6 rounded-2xl border border-slate-700/50 shadow-lg relative overflow-hidden">
-                <p class="text-slate-400 text-sm font-medium mb-1">Pengeluaran</p>
-                <h3 class="text-3xl font-bold text-rose-400" id="total-expense">Rp 0</h3>
-            </div>
-        </div>
-
-        <div class="bg-card p-6 rounded-2xl border border-slate-700/50 shadow-lg mb-8">
-            <div class="flex flex-col sm:flex-row justify-between items-center mb-6 gap-4">
-                <h3 class="text-xl font-bold text-white">Analitik Keuangan</h3>
-                <div class="flex bg-slate-800 rounded-lg p-1 border border-slate-700">
-                    <button onclick="setChartFilter('1W')" class="chart-filter px-4 py-1.5 text-xs font-medium rounded-md transition-all text-slate-400 hover:text-white" data-filter="1W">1 Minggu</button>
-                    <button onclick="setChartFilter('1M')" class="chart-filter px-4 py-1.5 text-xs font-medium rounded-md transition-all text-slate-400 hover:text-white" data-filter="1M">1 Bulan</button>
-                    <button onclick="setChartFilter('1Y')" class="chart-filter px-4 py-1.5 text-xs font-medium rounded-md transition-all text-slate-400 hover:text-white" data-filter="1Y">1 Tahun</button>
-                    <button onclick="setChartFilter('ALL')" class="chart-filter px-4 py-1.5 text-xs font-medium rounded-md transition-all bg-primary text-dark font-bold shadow-lg" data-filter="ALL">Semua</button>
+        <section id="notes-section" class="mb-16">
+            <h2 class="text-3xl font-bold text-center mb-8 text-white">Start Taking Notes 📝</h2>
+            
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
+                <div class="bg-gray-800 p-6 rounded-xl shadow-lg border-t-4 border-primary-500">
+                    <p class="text-lg text-gray-400">Total Uang (Sisa)</p>
+                    <p id="total-uang" class="text-4xl font-extrabold text-white mt-1">Rp 0</p>
+                </div>
+                <div class="bg-gray-800 p-6 rounded-xl shadow-lg border-t-4 border-green-500">
+                    <p class="text-lg text-gray-400">Total Pemasukan</p>
+                    <p id="total-pemasukan" class="text-4xl font-extrabold text-green-400 mt-1">Rp 0</p>
+                </div>
+                <div class="bg-gray-800 p-6 rounded-xl shadow-lg border-t-4 border-red-500">
+                    <p class="text-lg text-gray-400">Total Pengeluaran</p>
+                    <p id="total-pengeluaran" class="text-4xl font-extrabold text-red-400 mt-1">Rp 0</p>
                 </div>
             </div>
-            <div class="relative h-72 w-full">
-                <canvas id="financeChart"></canvas>
-            </div>
-        </div>
 
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-            
-            <div class="lg:col-span-4 sticky top-24">
-                <div class="bg-card p-6 rounded-2xl border border-slate-700/50">
-                    <h3 class="text-xl font-bold text-white mb-6 flex items-center gap-2">
-                        <span class="w-1 h-6 bg-primary rounded-full"></span>
-                        Tambah Catatan
-                    </h3>
-                    
-                    <form id="transaction-form" class="space-y-5">
-                        <input type="hidden" id="entry-id"> <div>
-                            <label class="block text-sm font-medium text-slate-400 mb-2">Tipe</label>
-                            <div class="grid grid-cols-2 gap-4">
-                                <label class="cursor-pointer">
-                                    <input type="radio" name="type" value="income" id="type-income" class="peer sr-only" checked>
-                                    <div class="rounded-xl p-3 text-center border border-slate-600 bg-slate-800 peer-checked:bg-emerald-500/20 peer-checked:border-emerald-500 peer-checked:text-emerald-400 transition-all">Pemasukan</div>
-                                </label>
-                                <label class="cursor-pointer">
-                                    <input type="radio" name="type" value="expense" id="type-expense" class="peer sr-only">
-                                    <div class="rounded-xl p-3 text-center border border-slate-600 bg-slate-800 peer-checked:bg-rose-500/20 peer-checked:border-rose-500 peer-checked:text-rose-400 transition-all">Pengeluaran</div>
-                                </label>
-                            </div>
-                        </div>
-
+            <div class="grid grid-cols-1 lg:grid-cols-5 gap-6">
+                <div class="lg:col-span-2 bg-gray-800 p-6 rounded-xl shadow-lg h-fit">
+                    <h3 class="text-2xl font-semibold mb-5 text-white">Input Catatan Baru</h3>
+                    <form id="note-form" class="space-y-4">
                         <div>
-                            <label class="block text-sm font-medium text-slate-400 mb-2">Nominal (Rp)</label>
-                            <input type="number" id="amount" required placeholder="0" class="w-full bg-slate-800 border border-slate-600 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-primary transition-colors">
+                            <label for="type" class="block text-sm font-medium text-gray-300">Tipe Uang</label>
+                            <select id="type" required class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-600 focus:outline-none focus:ring-primary-500 focus:border-primary-500 sm:text-sm rounded-md bg-gray-700 text-white">
+                                <option value="Pemasukan">Pemasukan (Income)</option>
+                                <option value="Pengeluaran">Pengeluaran (Expense)</option>
+                            </select>
                         </div>
-                        
                         <div>
-                            <label class="block text-sm font-medium text-slate-400 mb-2">Tanggal</label>
-                            <input type="date" id="date" required class="w-full bg-slate-800 border border-slate-600 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-primary transition-colors">
+                            <label for="nominal" class="block text-sm font-medium text-gray-300">Nominal Uang (Rp)</label>
+                            <input type="number" id="nominal" required placeholder="Contoh: 500000" class="mt-1 block w-full rounded-md border-gray-600 shadow-sm focus:border-primary-500 focus:ring-primary-500 sm:text-sm p-3 bg-gray-700 text-white">
                         </div>
-
                         <div>
-                            <label class="block text-sm font-medium text-slate-400 mb-2">Catatan</label>
-                            <textarea id="note" rows="2" placeholder="Keterangan..." class="w-full bg-slate-800 border border-slate-600 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-primary transition-colors"></textarea>
+                            <label for="message" class="block text-sm font-medium text-gray-300">Pesan (Opsional)</label>
+                            <input type="text" id="message" placeholder="Contoh: Gaji Bulanan atau Beli Kopi" class="mt-1 block w-full rounded-md border-gray-600 shadow-sm focus:border-primary-500 focus:ring-primary-500 sm:text-sm p-3 bg-gray-700 text-white">
                         </div>
-
-                        <div class="flex gap-3">
-                            <button type="submit" id="submit-btn" class="flex-1 bg-primary text-dark font-bold py-3 rounded-xl hover:bg-opacity-90 transition-all shadow-lg">Simpan</button>
-                            <button type="button" id="cancel-edit-btn" class="hidden px-4 py-3 bg-slate-700 text-white rounded-xl hover:bg-slate-600 transition-all">Batal</button>
-                        </div>
+                        <button type="submit" class="w-full py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-primary-600 hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500 transition duration-150">
+                            Catat Uang
+                        </button>
                     </form>
                 </div>
-            </div>
 
-            <div class="lg:col-span-8">
-                <div class="bg-card rounded-2xl border border-slate-700/50 overflow-hidden flex flex-col">
-                    <div class="p-6 border-b border-slate-700/50 flex justify-between items-center">
-                        <h3 class="text-xl font-bold text-white">Riwayat Catatan</h3>
-                    </div>
-
-                    <div class="overflow-x-auto custom-scrollbar">
-                        <table class="w-full text-left border-collapse">
-                            <thead class="bg-slate-800/50 text-slate-400 text-xs uppercase tracking-wider">
+                <div class="lg:col-span-3 bg-gray-800 p-6 rounded-xl shadow-lg overflow-hidden">
+                    <h3 class="text-2xl font-semibold mb-5 text-white">Riwayat Catatan 📚</h3>
+                    
+                    <div class="overflow-x-auto relative shadow-md sm:rounded-lg">
+                        <table class="w-full text-sm text-left text-gray-400">
+                            <thead class="text-xs uppercase bg-gray-700 text-gray-300">
                                 <tr>
-                                    <th class="p-4 font-semibold">Tanggal</th>
-                                    <th class="p-4 font-semibold text-right">Nominal</th>
-                                    <th class="p-4 font-semibold text-center">Tipe</th>
-                                    <th class="p-4 font-semibold">Catatan</th>
-                                    <th class="p-4 font-semibold text-center">Aksi</th>
+                                    <th scope="col" class="py-3 px-6 whitespace-nowrap">Tanggal</th>
+                                    <th scope="col" class="py-3 px-6 whitespace-nowrap">Nominal</th>
+                                    <th scope="col" class="py-3 px-6 whitespace-nowrap">Pesan</th>
+                                    <th scope="col" class="py-3 px-6 whitespace-nowrap">Aksi</th>
                                 </tr>
                             </thead>
-                            <tbody id="transaction-body" class="text-sm text-slate-300 divide-y divide-slate-700/50">
+                            <tbody id="note-history-body">
                                 </tbody>
                         </table>
                     </div>
 
-                    <div class="p-4 border-t border-slate-700/50 bg-slate-800/30 flex items-center justify-between">
-                        <p class="text-sm text-slate-400" id="pagination-info">Page 1</p>
-                        <div class="flex gap-2">
-                            <button id="prev-btn" class="px-3 py-1 rounded bg-slate-700 hover:bg-slate-600 text-sm disabled:opacity-50">Prev</button>
-                            <button id="next-btn" class="px-3 py-1 rounded bg-slate-700 hover:bg-slate-600 text-sm disabled:opacity-50">Next</button>
+                    <div id="pagination-controls" class="flex justify-between items-center mt-4">
+                        <span id="page-info" class="text-sm text-gray-400"></span>
+                        <div>
+                            <button id="prev-page" class="py-2 px-3 mr-2 bg-gray-700 hover:bg-gray-600 rounded-lg text-sm font-medium text-white disabled:opacity-50" disabled>
+                                Sebelumnya
+                            </button>
+                            <button id="next-page" class="py-2 px-3 bg-gray-700 hover:bg-gray-600 rounded-lg text-sm font-medium text-white disabled:opacity-50" disabled>
+                                Selanjutnya
+                            </button>
                         </div>
                     </div>
                 </div>
-                
-                 <div class="mt-8 flex justify-end gap-3">
-                    <button id="backup-btn" class="text-sm text-slate-400 hover:text-primary transition-colors underline">Backup JSON</button>
-                    <input type="file" id="restore-file" class="hidden" accept=".json">
-                    <button onclick="document.getElementById('restore-file').click()" class="text-sm text-slate-400 hover:text-primary transition-colors underline">Restore JSON</button>
-                 </div>
             </div>
-        </div>
-    </main>
+        </section>
 
-    <div id="delete-modal" class="fixed inset-0 z-50 hidden flex items-center justify-center bg-black/60 backdrop-blur-sm opacity-0 transition-opacity duration-300">
-        <div class="bg-card border border-slate-700 rounded-2xl p-6 w-full max-w-sm shadow-2xl transform scale-95 transition-transform duration-300">
-            <h3 class="text-xl font-bold text-white mb-2">Hapus Catatan?</h3>
-            <p class="text-slate-400 mb-6">Tindakan ini tidak dapat dibatalkan.</p>
-            <div class="flex gap-3 justify-end">
-                <button onclick="closeModal('delete-modal')" class="px-4 py-2 rounded-xl text-slate-300 hover:bg-slate-800 transition-colors">Batal</button>
-                <button id="confirm-delete-btn" class="px-4 py-2 rounded-xl bg-rose-500 text-white font-bold hover:bg-rose-600 transition-colors">Hapus</button>
+        <section id="chart-section" class="mb-16 bg-gray-800 p-6 rounded-xl shadow-lg">
+            <h2 class="text-3xl font-bold text-center mb-8 text-white">Grafik Keuangan 📈</h2>
+            
+            <div class="flex flex-wrap justify-center gap-3 mb-6">
+                <button data-period="7" class="chart-filter py-2 px-4 rounded-full bg-primary-600 text-white text-sm font-medium hover:bg-primary-700 transition">1 Minggu</button>
+                <button data-period="30" class="chart-filter py-2 px-4 rounded-full bg-gray-700 text-gray-300 text-sm font-medium hover:bg-primary-600 hover:text-white transition">1 Bulan</button>
+                <button data-period="180" class="chart-filter py-2 px-4 rounded-full bg-gray-700 text-gray-300 text-sm font-medium hover:bg-primary-600 hover:text-white transition">6 Bulan</button>
+                <button data-period="365" class="chart-filter py-2 px-4 rounded-full bg-gray-700 text-gray-300 text-sm font-medium hover:bg-primary-600 hover:text-white transition">1 Tahun</button>
+                <button data-period="all" class="chart-filter py-2 px-4 rounded-full bg-gray-700 text-gray-300 text-sm font-medium hover:bg-primary-600 hover:text-white transition">All-Time</button>
+            </div>
+
+            <div class="h-96">
+                
+                <canvas id="financeChart" class="w-full h-full"></canvas>
+            </div>
+        </section>
+
+        <section id="backup-section" class="mb-16 bg-gray-800 p-6 rounded-xl shadow-lg border border-gray-700">
+            <h2 class="text-3xl font-bold text-center mb-8 text-white">Backup Your Data 💾</h2>
+            <div class="max-w-xl mx-auto space-y-4">
+                <button id="backup-btn" class="w-full py-3 px-4 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-green-600 hover:bg-green-700 transition duration-150">
+                    Unduh Data (.json)
+                </button>
+                <div class="border-t border-gray-700 pt-4">
+                    <label for="restore-file" class="block text-sm font-medium text-gray-300 mb-2">Restore Data dari File JSON:</label>
+                    <input type="file" id="restore-file" accept=".json" class="block w-full text-sm text-gray-400 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-primary-50 file:text-primary-700 hover:file:bg-primary-100 cursor-pointer">
+                    <p id="restore-status" class="mt-2 text-sm text-gray-500"></p>
+                </div>
+            </div>
+        </section>
+
+    </main>
+    
+    <div id="modal" class="fixed inset-0 bg-gray-900 bg-opacity-75 z-[100] hidden justify-center items-center">
+        <div class="bg-gray-800 rounded-lg p-6 w-full max-w-md shadow-2xl">
+            <h3 id="modal-title" class="text-xl font-bold mb-4 text-white">Modal Title</h3>
+            <div id="modal-content">
+                </div>
+            <div class="flex justify-end space-x-3 mt-6">
+                <button id="close-modal" class="py-2 px-4 rounded-md text-sm font-medium text-gray-300 bg-gray-700 hover:bg-gray-600 transition">Batal</button>
+                <button id="confirm-modal" class="py-2 px-4 rounded-md text-sm font-medium text-white bg-red-600 hover:bg-red-700 transition">Hapus/Simpan</button>
             </div>
         </div>
     </div>
 
+
+    <footer class="bg-gray-950 border-t border-gray-800 mt-10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-10">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div>
+                    <a href="#" class="text-3xl font-bold text-primary-500 tracking-wider">noteup!</a>
+                    <p class="mt-4 text-gray-400 text-sm">Pencatat keuangan yang dirancang untuk profesional. Ambil kendali penuh atas finansial Anda.</p>
+                </div>
+                <div class="md:col-span-2 grid grid-cols-2 md:grid-cols-3 gap-8">
+                    <div>
+                        <h4 class="text-lg font-semibold text-white mb-3">Produk</h4>
+                        <ul class="space-y-2 text-gray-400 text-sm">
+                            <li><a href="#" class="hover:text-primary-400">Fitur Utama</a></li>
+                            <li><a href="#" class="hover:text-primary-400">Grafik Laporan</a></li>
+                            <li><a href="#" class="hover:text-primary-400">Backup & Restore</a></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4 class="text-lg font-semibold text-white mb-3">Dukungan</h4>
+                        <ul class="space-y-2 text-gray-400 text-sm">
+                            <li><a href="#" class="hover:text-primary-400">FAQ</a></li>
+                            <li><a href="#" class="hover:text-primary-400">Hubungi Kami</a></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4 class="text-lg font-semibold text-white mb-3">Legal</h4>
+                        <ul class="space-y-2 text-gray-400 text-sm">
+                            <li><a href="#" class="hover:text-primary-400">Ketentuan Layanan</a></li>
+                            <li><a href="#" class="hover:text-primary-400">Kebijakan Privasi</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mt-8 pt-6 border-t border-gray-800 text-center">
+                <p class="text-sm text-gray-500">
+                    &copy; <span id="current-year"></span> noteup! All rights reserved. Dibuat dengan semangat profesionalisme.
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
     <script src="script.js"></script>
+    <script>
+        document.getElementById('current-year').textContent = new Date().getFullYear();
+    </script>
 </body>
 </html>
