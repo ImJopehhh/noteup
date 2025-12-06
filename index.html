@@ -1,233 +1,248 @@
 <!DOCTYPE html>
-<html lang="id" class="dark">
+<html lang="id" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>noteup! - Professional Personal Finance Tracker</title>
-    <meta name="description" content="Kelola keuangan pribadi Anda secara profesional dengan noteup!. Catat pemasukan, pengeluaran, dan pantau grafik keuangan Anda.">
+    <meta name="description" content="Noteup! Aplikasi pencatat keuangan pribadi profesional, aman, dan mudah digunakan.">
+    <title>noteup! | Modern Finance Tracker</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     
     <link rel="stylesheet" href="style.css">
-    
+
     <script src="https://cdn.tailwindcss.com"></script>
-    
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
     <script>
         tailwind.config = {
             darkMode: 'class',
             theme: {
+                fontFamily: {
+                    sans: ['Poppins', 'sans-serif'],
+                },
                 extend: {
                     colors: {
-                        // Ubah hex ini untuk mengganti warna inti website
-                        brand: {
-                            DEFAULT: '#10b981', // Emerald 500
-                            dark: '#059669',    // Emerald 600
-                            light: '#34d399',   // Emerald 400
-                        },
-                        darkbg: '#111827',     // Gray 900
-                        cardbg: '#1f2937',     // Gray 800
+                        // GANTI WARNA INTI DI SINI (Hex Code)
+                        // Contoh: Ungu (#8b5cf6), Biru (#3b82f6), Orange (#f97316)
+                        primary: '#10b981', // Saat ini: Emerald Green
+                        dark: '#0f172a',    // Background utama (Slate 900)
+                        card: '#1e293b',    // Background kartu (Slate 800)
                     }
                 }
             }
         }
     </script>
 </head>
-<body class="bg-darkbg text-gray-200 antialiased selection:bg-brand selection:text-white">
+<body class="bg-dark text-slate-200 font-sans antialiased selection:bg-primary selection:text-white">
 
-    <nav class="fixed w-full z-50 bg-cardbg/80 backdrop-blur-md border-b border-gray-700">
+    <nav class="fixed w-full z-50 bg-dark/80 backdrop-blur-md border-b border-slate-800">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between h-16">
                 <div class="flex items-center gap-2">
-                    <i class="fa-solid fa-wallet text-brand text-2xl"></i>
-                    <span class="font-bold text-xl tracking-tight text-white">noteup<span class="text-brand">!</span></span>
+                    <div class="w-8 h-8 bg-primary rounded-lg flex items-center justify-center font-bold text-dark text-xl">N</div>
+                    <span class="font-bold text-xl tracking-tight text-white">noteup!</span>
                 </div>
                 <div>
-                    <a href="#dashboard" class="text-gray-300 hover:text-brand transition px-3 py-2 text-sm font-medium">Dashboard</a>
-                    <a href="#backup" class="text-gray-300 hover:text-brand transition px-3 py-2 text-sm font-medium">Backup</a>
+                    <button id="currencyToggle" class="text-sm font-medium bg-slate-800 px-3 py-1 rounded-md hover:bg-slate-700 transition border border-slate-700 text-primary">
+                        IDR (Rp)
+                    </button>
                 </div>
             </div>
         </div>
     </nav>
 
-    <header class="pt-32 pb-16 px-4 sm:px-6 lg:px-8 text-center bg-gradient-to-b from-darkbg via-gray-900 to-darkbg">
-        <h1 class="text-4xl sm:text-6xl font-extrabold text-white mb-6">
-            Master Your <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand to-brand-light">Money</span>
-        </h1>
-        <p class="max-w-2xl mx-auto text-lg text-gray-400 mb-8">
-            Catat setiap rupiah, analisis kebiasaan belanja, dan capai kebebasan finansial Anda dengan noteup!. Simpel, Cepat, dan Aman.
-        </p>
-        <a href="#dashboard" class="inline-flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-full text-white bg-brand hover:bg-brand-dark transition transform hover:scale-105 shadow-lg shadow-brand/20">
-            Mulai Mencatat
-        </a>
-    </header>
+    <section class="pt-32 pb-20 px-4 text-center relative overflow-hidden">
+        <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[500px] h-[500px] bg-primary/20 rounded-full blur-[100px] -z-10"></div>
+        <div class="max-w-3xl mx-auto">
+            <span class="inline-block py-1 px-3 rounded-full bg-primary/10 text-primary text-sm font-semibold mb-4 border border-primary/20">Versi 1.0 Alpha</span>
+            <h1 class="text-4xl md:text-6xl font-bold text-white mb-6 leading-tight">
+                Kendalikan Keuanganmu <br> dengan <span class="text-primary">Profesional</span>
+            </h1>
+            <p class="text-slate-400 text-lg mb-8 leading-relaxed">
+                Catat setiap pemasukan dan pengeluaran dengan mudah. Tanpa server, data tersimpan aman di browser Anda secara lokal.
+            </p>
+            <a href="#app-dashboard" class="inline-flex items-center justify-center px-8 py-3 text-base font-medium text-dark bg-primary hover:bg-opacity-90 rounded-full transition-all shadow-[0_0_20px_rgba(16,185,129,0.3)] hover:shadow-[0_0_30px_rgba(16,185,129,0.5)]">
+                Mulai Mencatat
+            </a>
+        </div>
+    </section>
 
-    <main id="dashboard" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+    <main id="app-dashboard" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 scroll-mt-20">
         
         <div class="mb-8">
-            <h2 class="text-2xl font-bold text-white mb-6 border-l-4 border-brand pl-4">Financial Overview</h2>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <div class="bg-cardbg p-6 rounded-2xl border border-gray-700 shadow-xl">
-                    <div class="flex items-center justify-between mb-4">
-                        <h3 class="text-gray-400 text-sm font-medium uppercase">Total Uang</h3>
-                        <div class="p-2 bg-blue-500/10 rounded-lg text-blue-500"><i class="fa-solid fa-scale-balanced"></i></div>
-                    </div>
-                    <p class="text-2xl font-bold text-white" id="display-balance">Rp 0</p>
+            <h2 class="text-2xl font-bold text-white mb-1 border-l-4 border-primary pl-3">Start Taking Notes</h2>
+            <p class="text-slate-400 text-sm pl-4">Ringkasan keuangan Anda saat ini.</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
+            <div class="bg-card p-6 rounded-2xl border border-slate-700 shadow-lg relative overflow-hidden group hover:border-primary/50 transition duration-300">
+                <div class="absolute right-0 top-0 p-4 opacity-10 group-hover:opacity-20 transition">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
                 </div>
-                <div class="bg-cardbg p-6 rounded-2xl border border-gray-700 shadow-xl">
-                    <div class="flex items-center justify-between mb-4">
-                        <h3 class="text-gray-400 text-sm font-medium uppercase">Total Pemasukan</h3>
-                        <div class="p-2 bg-brand/10 rounded-lg text-brand"><i class="fa-solid fa-arrow-trend-up"></i></div>
-                    </div>
-                    <p class="text-2xl font-bold text-brand" id="display-income">Rp 0</p>
-                </div>
-                <div class="bg-cardbg p-6 rounded-2xl border border-gray-700 shadow-xl">
-                    <div class="flex items-center justify-between mb-4">
-                        <h3 class="text-gray-400 text-sm font-medium uppercase">Total Pengeluaran</h3>
-                        <div class="p-2 bg-red-500/10 rounded-lg text-red-500"><i class="fa-solid fa-arrow-trend-down"></i></div>
-                    </div>
-                    <p class="text-2xl font-bold text-red-500" id="display-expense">Rp 0</p>
-                </div>
+                <h3 class="text-slate-400 text-sm font-medium uppercase tracking-wider">Total Saldo</h3>
+                <p id="displayBalance" class="text-3xl font-bold text-white mt-2">Rp 0</p>
+            </div>
+            <div class="bg-card p-6 rounded-2xl border border-slate-700 shadow-lg">
+                <h3 class="text-emerald-400 text-sm font-medium uppercase tracking-wider flex items-center gap-2">
+                    <span class="w-2 h-2 rounded-full bg-emerald-400"></span> Total Pemasukan
+                </h3>
+                <p id="displayIncome" class="text-2xl font-semibold text-white mt-2">Rp 0</p>
+            </div>
+            <div class="bg-card p-6 rounded-2xl border border-slate-700 shadow-lg">
+                <h3 class="text-rose-400 text-sm font-medium uppercase tracking-wider flex items-center gap-2">
+                    <span class="w-2 h-2 rounded-full bg-rose-400"></span> Total Pengeluaran
+                </h3>
+                <p id="displayExpense" class="text-2xl font-semibold text-white mt-2">Rp 0</p>
             </div>
         </div>
 
-        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-12">
-            <div class="lg:col-span-1">
-                <div class="bg-cardbg p-6 rounded-2xl border border-gray-700 sticky top-24">
-                    <h3 class="text-xl font-bold text-white mb-4">Tambah Transaksi</h3>
-                    <form id="transaction-form" class="space-y-4">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+            
+            <div class="lg:col-span-4">
+                <div class="bg-card p-6 rounded-2xl border border-slate-700 sticky top-24">
+                    <h3 class="text-xl font-bold text-white mb-6">Tambah Transaksi</h3>
+                    <form id="transactionForm" class="space-y-4">
                         <div>
-                            <label class="block text-sm font-medium text-gray-400 mb-1">Tipe Transaksi</label>
-                            <div class="grid grid-cols-2 gap-4">
-                                <button type="button" id="btn-income" class="py-2 rounded-lg border border-gray-600 text-gray-300 hover:border-brand hover:text-brand transition text-sm font-medium active-type" onclick="setType('income')">Pemasukan</button>
-                                <button type="button" id="btn-expense" class="py-2 rounded-lg border border-gray-600 text-gray-300 hover:border-red-500 hover:text-red-500 transition text-sm font-medium" onclick="setType('expense')">Pengeluaran</button>
+                            <label class="block text-sm font-medium text-slate-400 mb-1">Tipe Transaksi</label>
+                            <div class="grid grid-cols-2 gap-2">
+                                <label class="cursor-pointer">
+                                    <input type="radio" name="type" value="income" class="peer sr-only" checked>
+                                    <div class="text-center py-2 rounded-lg border border-slate-600 text-slate-400 peer-checked:bg-emerald-500/20 peer-checked:text-emerald-400 peer-checked:border-emerald-500 transition-all">
+                                        Pemasukan
+                                    </div>
+                                </label>
+                                <label class="cursor-pointer">
+                                    <input type="radio" name="type" value="expense" class="peer sr-only">
+                                    <div class="text-center py-2 rounded-lg border border-slate-600 text-slate-400 peer-checked:bg-rose-500/20 peer-checked:text-rose-400 peer-checked:border-rose-500 transition-all">
+                                        Pengeluaran
+                                    </div>
+                                </label>
                             </div>
-                            <input type="hidden" id="input-type" value="income">
-                        </div>
-                        
-                        <div>
-                            <label class="block text-sm font-medium text-gray-400 mb-1">Nominal (Rp)</label>
-                            <input type="number" id="input-amount" required placeholder="0" class="w-full bg-gray-900 border border-gray-700 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-brand transition">
                         </div>
 
                         <div>
-                            <label class="block text-sm font-medium text-gray-400 mb-1">Tanggal</label>
-                            <input type="date" id="input-date" required class="w-full bg-gray-900 border border-gray-700 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-brand transition">
+                            <label class="block text-sm font-medium text-slate-400 mb-1">Nominal (<span id="currencyLabel">IDR</span>)</label>
+                            <input type="number" id="inputAmount" required placeholder="0" class="w-full bg-dark border border-slate-600 rounded-lg px-4 py-2.5 text-white focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition placeholder-slate-600">
                         </div>
 
                         <div>
-                            <label class="block text-sm font-medium text-gray-400 mb-1">Catatan (Opsional)</label>
-                            <textarea id="input-note" rows="3" placeholder="Untuk apa uang ini?" class="w-full bg-gray-900 border border-gray-700 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-brand transition"></textarea>
+                            <label class="block text-sm font-medium text-slate-400 mb-1">Pesan / Keterangan</label>
+                            <input type="text" id="inputMsg" placeholder="Contoh: Beli Nasi Padang" class="w-full bg-dark border border-slate-600 rounded-lg px-4 py-2.5 text-white focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition placeholder-slate-600">
                         </div>
 
-                        <button type="submit" class="w-full bg-brand hover:bg-brand-dark text-white font-bold py-3 rounded-lg transition shadow-lg shadow-brand/20">
+                        <div class="text-xs text-slate-500 italic mt-2">
+                            *Tanggal akan otomatis diset ke waktu sekarang.
+                        </div>
+
+                        <button type="submit" class="w-full bg-primary hover:bg-opacity-90 text-dark font-bold py-3 rounded-lg transition-all shadow-lg transform active:scale-95">
                             Simpan Catatan
                         </button>
                     </form>
                 </div>
             </div>
 
-            <div class="lg:col-span-2">
-                <div class="bg-cardbg rounded-2xl border border-gray-700 overflow-hidden flex flex-col h-full">
-                    <div class="p-6 border-b border-gray-700 flex justify-between items-center">
+            <div class="lg:col-span-8">
+                <div class="bg-card rounded-2xl border border-slate-700 flex flex-col h-full">
+                    <div class="p-6 border-b border-slate-700 flex justify-between items-center">
                         <h3 class="text-xl font-bold text-white">Riwayat Catatan</h3>
-                        <span class="text-xs bg-gray-700 text-gray-300 px-2 py-1 rounded" id="total-records">0 Data</span>
+                        <span id="recordCount" class="text-xs font-mono bg-dark px-2 py-1 rounded text-primary">0 Data</span>
                     </div>
                     
-                    <div class="overflow-x-auto flex-grow">
-                        <table class="w-full text-left text-sm text-gray-400">
-                            <thead class="bg-gray-800 text-gray-200 uppercase text-xs">
+                    <div class="overflow-x-auto custom-scrollbar">
+                        <table class="w-full text-left border-collapse">
+                            <thead class="bg-slate-900/50 text-slate-400 uppercase text-xs font-semibold">
                                 <tr>
-                                    <th class="px-6 py-3">Tanggal</th>
-                                    <th class="px-6 py-3">Catatan</th>
-                                    <th class="px-6 py-3 text-right">Nominal</th>
-                                    <th class="px-6 py-3 text-center">Aksi</th>
+                                    <th class="px-6 py-4 whitespace-nowrap">Tanggal</th>
+                                    <th class="px-6 py-4">Pesan</th>
+                                    <th class="px-6 py-4 text-right">Nominal</th>
+                                    <th class="px-6 py-4 text-center">Aksi</th>
                                 </tr>
                             </thead>
-                            <tbody id="transaction-table-body" class="divide-y divide-gray-700">
-                                </tbody>
+                            <tbody id="tableBody" class="divide-y divide-slate-700 text-sm">
+                                <tr>
+                                    <td colspan="4" class="px-6 py-8 text-center text-slate-500">
+                                        Belum ada catatan keuangan. Mulai input sekarang!
+                                    </td>
+                                </tr>
+                            </tbody>
                         </table>
                     </div>
 
-                    <div class="p-4 border-t border-gray-700 flex justify-between items-center bg-gray-800">
-                        <button id="prev-page" class="px-4 py-2 bg-gray-700 text-white rounded hover:bg-gray-600 disabled:opacity-50 text-xs">Previous</button>
-                        <span id="page-info" class="text-xs text-gray-400">Page 1</span>
-                        <button id="next-page" class="px-4 py-2 bg-gray-700 text-white rounded hover:bg-gray-600 disabled:opacity-50 text-xs">Next</button>
+                    <div class="p-4 border-t border-slate-700 flex justify-between items-center mt-auto">
+                        <button id="prevBtn" class="px-4 py-2 text-sm bg-dark border border-slate-600 rounded hover:bg-slate-700 text-slate-300 disabled:opacity-50 disabled:cursor-not-allowed transition">
+                            &larr; Prev
+                        </button>
+                        <span id="pageIndicator" class="text-sm text-slate-400">Page 1</span>
+                        <button id="nextBtn" class="px-4 py-2 text-sm bg-dark border border-slate-600 rounded hover:bg-slate-700 text-slate-300 disabled:opacity-50 disabled:cursor-not-allowed transition">
+                            Next &rarr;
+                        </button>
                     </div>
                 </div>
             </div>
         </div>
-
-        <div class="mb-12">
-            <h2 class="text-2xl font-bold text-white mb-6 border-l-4 border-brand pl-4">Analitik Keuangan</h2>
-            <div class="bg-cardbg p-6 rounded-2xl border border-gray-700">
-                <div class="flex flex-wrap gap-2 mb-6 justify-center sm:justify-end">
-                    <button onclick="updateChart('7')" class="chart-filter px-3 py-1 rounded bg-gray-700 text-gray-300 hover:bg-brand hover:text-white text-xs transition">1 Minggu</button>
-                    <button onclick="updateChart('30')" class="chart-filter px-3 py-1 rounded bg-gray-700 text-gray-300 hover:bg-brand hover:text-white text-xs transition">1 Bulan</button>
-                    <button onclick="updateChart('180')" class="chart-filter px-3 py-1 rounded bg-gray-700 text-gray-300 hover:bg-brand hover:text-white text-xs transition">6 Bulan</button>
-                    <button onclick="updateChart('365')" class="chart-filter px-3 py-1 rounded bg-gray-700 text-gray-300 hover:bg-brand hover:text-white text-xs transition">1 Tahun</button>
-                    <button onclick="updateChart('all')" class="chart-filter px-3 py-1 rounded bg-brand text-white text-xs transition active-filter">All Time</button>
-                </div>
-                <div class="h-80 w-full relative">
-                    <canvas id="financeChart"></canvas>
-                </div>
-            </div>
-        </div>
-
-        <div id="backup" class="mb-12 bg-gradient-to-r from-gray-800 to-gray-900 rounded-2xl p-8 border border-gray-700 flex flex-col md:flex-row items-center justify-between gap-6">
-            <div>
-                <h2 class="text-2xl font-bold text-white mb-2">Backup Your Data</h2>
-                <p class="text-gray-400 text-sm">Jangan sampai kehilangan data. Download file JSON atau Restore data lama Anda.</p>
-            </div>
-            <div class="flex gap-4">
-                <button onclick="exportData()" class="flex items-center gap-2 px-6 py-3 bg-gray-700 hover:bg-gray-600 text-white rounded-lg transition font-medium">
-                    <i class="fa-solid fa-download"></i> Export
-                </button>
-                <label class="flex items-center gap-2 px-6 py-3 bg-brand hover:bg-brand-dark text-white rounded-lg transition font-medium cursor-pointer">
-                    <i class="fa-solid fa-upload"></i> Restore
-                    <input type="file" id="import-file" class="hidden" accept=".json" onchange="importData(this)">
-                </label>
-            </div>
-        </div>
-
     </main>
 
-    <footer class="bg-gray-900 border-t border-gray-800 py-12">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center gap-6">
-            <div class="text-center md:text-left">
-                <div class="flex items-center justify-center md:justify-start gap-2 mb-2">
-                    <i class="fa-solid fa-wallet text-brand text-xl"></i>
-                    <span class="font-bold text-lg text-white">noteup<span class="text-brand">!</span></span>
-                </div>
-                <p class="text-gray-500 text-sm">Professional Finance Tracker for Everyone.</p>
+    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 border-t border-slate-800">
+        <div class="bg-slate-800/50 rounded-2xl p-8 flex flex-col md:flex-row items-center justify-between gap-6 border border-slate-700 border-dashed">
+            <div>
+                <h3 class="text-xl font-bold text-white mb-2">Backup Your Data</h3>
+                <p class="text-slate-400 text-sm max-w-lg">
+                    Unduh data keuangan Anda dalam format JSON agar aman. Anda dapat memuatnya kembali kapan saja jika berganti perangkat atau browser.
+                </p>
             </div>
-            <div class="text-gray-500 text-sm">
-                &copy; <script>document.write(new Date().getFullYear())</script> noteup! Inc. All rights reserved.
+            <div class="flex gap-4">
+                <button onclick="backupData()" class="px-5 py-2.5 bg-slate-700 hover:bg-slate-600 text-white rounded-lg border border-slate-600 transition flex items-center gap-2">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
+                    Download JSON
+                </button>
+                <input type="file" id="restoreFile" accept=".json" class="hidden" onchange="restoreData(this)">
+                <button onclick="document.getElementById('restoreFile').click()" class="px-5 py-2.5 bg-slate-700 hover:bg-slate-600 text-white rounded-lg border border-slate-600 transition flex items-center gap-2">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"></path></svg>
+                    Restore Data
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <section class="max-w-4xl mx-auto px-4 py-16 text-center">
+        <h2 class="text-3xl font-bold text-white mb-6">How it works?</h2>
+        <div class="grid md:grid-cols-3 gap-8">
+            <div class="p-4">
+                <div class="w-12 h-12 bg-primary/20 text-primary rounded-full flex items-center justify-center text-xl font-bold mx-auto mb-4">1</div>
+                <h4 class="text-white font-semibold mb-2">Input Transaksi</h4>
+                <p class="text-slate-400 text-sm">Masukkan nominal dan kategori uang yang keluar atau masuk.</p>
+            </div>
+            <div class="p-4">
+                <div class="w-12 h-12 bg-primary/20 text-primary rounded-full flex items-center justify-center text-xl font-bold mx-auto mb-4">2</div>
+                <h4 class="text-white font-semibold mb-2">Pantau Grafik</h4>
+                <p class="text-slate-400 text-sm">Lihat ringkasan total uang Anda secara realtime di dashboard.</p>
+            </div>
+            <div class="p-4">
+                <div class="w-12 h-12 bg-primary/20 text-primary rounded-full flex items-center justify-center text-xl font-bold mx-auto mb-4">3</div>
+                <h4 class="text-white font-semibold mb-2">Aman & Privat</h4>
+                <p class="text-slate-400 text-sm">Data tersimpan di Local Storage browser Anda. Jangan lupa backup!</p>
+            </div>
+        </div>
+    </section>
+
+    <footer class="border-t border-slate-800 bg-dark pt-12 pb-8">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="flex items-center gap-2 mb-4 md:mb-0">
+                    <div class="w-6 h-6 bg-primary rounded flex items-center justify-center font-bold text-dark text-xs">N</div>
+                    <span class="font-bold text-lg text-white">noteup!</span>
+                </div>
+                <div class="flex space-x-6 text-slate-400 text-sm">
+                    <a href="#" class="hover:text-primary transition">Privacy Policy</a>
+                    <a href="#" class="hover:text-primary transition">Terms of Service</a>
+                    <a href="#" class="hover:text-primary transition">Contact</a>
+                </div>
+            </div>
+            <div class="mt-8 text-center text-slate-500 text-sm">
+                &copy; <script>document.write(new Date().getFullYear())</script> Noteup Finance. All rights reserved.
             </div>
         </div>
     </footer>
-
-    <div id="edit-modal" class="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
-        <div class="bg-cardbg rounded-2xl w-full max-w-md border border-gray-600 p-6 shadow-2xl transform transition-all">
-            <h3 class="text-xl font-bold text-white mb-4">Edit Transaksi</h3>
-            <form id="edit-form" class="space-y-4">
-                <input type="hidden" id="edit-id">
-                <div>
-                    <label class="block text-sm font-medium text-gray-400 mb-1">Nominal</label>
-                    <input type="number" id="edit-amount" required class="w-full bg-gray-900 border border-gray-600 rounded-lg px-4 py-2 text-white">
-                </div>
-                <div>
-                    <label class="block text-sm font-medium text-gray-400 mb-1">Catatan</label>
-                    <input type="text" id="edit-note" class="w-full bg-gray-900 border border-gray-600 rounded-lg px-4 py-2 text-white">
-                </div>
-                <div class="flex gap-3 pt-2">
-                    <button type="button" onclick="closeModal()" class="flex-1 py-2 bg-gray-700 hover:bg-gray-600 text-white rounded-lg">Batal</button>
-                    <button type="submit" class="flex-1 py-2 bg-brand hover:bg-brand-dark text-white rounded-lg">Update</button>
-                </div>
-            </form>
-        </div>
-    </div>
 
     <script src="script.js"></script>
 </body>
