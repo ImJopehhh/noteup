@@ -1,30 +1,44 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+/* style.css */
+body {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
 
-/* Custom Scrollbar untuk kesan modern */
+/* Custom Scrollbar untuk Webkit (Chrome/Safari/Edge) */
 ::-webkit-scrollbar {
     width: 8px;
     height: 8px;
 }
+
 ::-webkit-scrollbar-track {
-    background: #1f2937; 
+    background: #0f172a; /* Slate 900 */
 }
+
 ::-webkit-scrollbar-thumb {
-    background: #4b5563; 
+    background: #334155; /* Slate 700 */
     border-radius: 4px;
 }
+
 ::-webkit-scrollbar-thumb:hover {
-    background: #6b7280; 
+    background: #475569; /* Slate 600 */
 }
 
-body {
-    font-family: 'Poppins', sans-serif;
+/* Custom Scrollbar untuk Table Container agar rapi */
+.custom-scrollbar::-webkit-scrollbar {
+    height: 6px;
 }
 
-/* Utilitas tambahan untuk menyembunyikan scrollbar di element tertentu jika perlu */
-.no-scrollbar::-webkit-scrollbar {
-    display: none;
+.custom-scrollbar::-webkit-scrollbar-thumb {
+    background: #1e293b; /* Card color */
+    border: 1px solid #334155;
 }
-.no-scrollbar {
-    -ms-overflow-style: none;
-    scrollbar-width: none;
+
+/* Utility tambahan untuk animasi halus */
+.fade-in {
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
 }
