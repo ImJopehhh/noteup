@@ -1,44 +1,50 @@
 /* style.css */
+
+/* Import font Poppins dari Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+/* Tailwind CSS directives */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Custom CSS Variables untuk Warna Inti */
+/* Menggunakan Indigo (default Tailwind), tapi bisa diganti di sini */
+:root {
+  --color-primary-50: #eef2ff;
+  --color-primary-100: #e0e7ff;
+  --color-primary-200: #c7d2fe;
+  --color-primary-300: #a5b4fc;
+  --color-primary-400: #818cf8;
+  --color-primary-500: #6366f1; /* Main primary color */
+  --color-primary-600: #4f46e5;
+  --color-primary-700: #4338ca;
+  --color-primary-800: #3730a3;
+  --color-primary-900: #312e81;
+  --color-primary-950: #1e1b4b;
+}
+
+/* Overriding Tailwind's default dark mode colors for a professional look */
+.dark {
+  --color-background: #111827; /* Darker background */
+  --color-card: #1f2937; /* Card/Surface background */
+  --color-text-primary: #f3f4f6;
+  --color-text-secondary: #9ca3af;
+}
+
 body {
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
+  font-family: 'Poppins', sans-serif;
+  background-color: var(--color-background);
+  color: var(--color-text-primary);
 }
 
-/* Custom Scrollbar untuk Webkit (Chrome/Safari/Edge) */
-::-webkit-scrollbar {
-    width: 8px;
-    height: 8px;
-}
+/* Custom utility untuk menggunakan variabel warna di Tailwind */
+/* Agar bisa dipakai seperti bg-primary-500, text-primary-600, dll. */
+/* Perlu dikonfigurasi di tailwind.config.js, tapi karena kita tidak menggunakan CLI,
+   kita akan menggunakan class langsung dengan inline style atau JIT configuration jika menggunakan CLI,
+   namun untuk contoh ini, saya akan menggunakan class Tailwind yang ada (misalnya bg-indigo-700)
+   dan menganggap Anda akan mengkonfigurasi `extend` di Tailwind config untuk menggunakan variabel ini,
+   ATAU saya akan menggunakan **Arbitrary values** di Tailwind untuk kemudahan demo. */
 
-::-webkit-scrollbar-track {
-    background: #0f172a; /* Slate 900 */
-}
-
-::-webkit-scrollbar-thumb {
-    background: #334155; /* Slate 700 */
-    border-radius: 4px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-    background: #475569; /* Slate 600 */
-}
-
-/* Custom Scrollbar untuk Table Container agar rapi */
-.custom-scrollbar::-webkit-scrollbar {
-    height: 6px;
-}
-
-.custom-scrollbar::-webkit-scrollbar-thumb {
-    background: #1e293b; /* Card color */
-    border: 1px solid #334155;
-}
-
-/* Utility tambahan untuk animasi halus */
-.fade-in {
-    animation: fadeIn 0.3s ease-in-out;
-}
-
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(10px); }
-    to { opacity: 1; transform: translateY(0); }
-}
+/* Untuk demo ini, saya akan menggunakan warna **Indigo** bawaan Tailwind
+   dan memastikan dark mode terimplementasi dengan baik */
